@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+    #inputArea {
+      margin-bottom: 15px;
+    }
+    input {
+      padding: 5px 8px;
+      font-size: 14px;
+    }
+    button {
+      padding: 5px 10px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    ul {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>To-Do List</h2>
+
+  <div id="inputArea">
+    <input type="text" id="todoInput" placeholder="Tulis tugas...">
+    <button onclick="addTodo()">Tambah</button>
+  </div>
+
+  <ul id="todoList">
+    <li>Mengerjakan latihan 1</li>
+    <li>Membuat laporan</li>
+  </ul>
+
+  <script>
+    function addTodo() {
+      const input = document.getElementById("todoInput");
+
+      const text = input.value.trim(); // hapus spasi kiri-kanan
+
+      if (text === "") {
+        alert("Tugas tidak boleh kosong!");
+        return;
+      }
+
+      // Buat elemen <li> baru
+      const li = document.createElement("li");
+      li.textContent = text;
+
+      // Masukkan ke daftar
+      document.getElementById("todoList").appendChild(li);
+
+      // Bersihkan input
+      input.value = "";
+    }
+  </script>
+
+</body>
+</html>

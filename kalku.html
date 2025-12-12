@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Latihan Javascript 01 - Kalkulator Prompt</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;margin:40px;color:#222}
+    .wrap{max-width:780px}
+    h1{font-size:2rem;margin-bottom:.25rem;color:#2b5}
+    p.lead{color:#555}
+    pre{background:#f6f6f6;border:1px solid #e5e5e5;padding:12px;overflow:auto}
+    button{padding:10px 14px;font-size:1rem;border-radius:8px;border:1px solid #ccc;cursor:pointer}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Latihan Javascript 01 — Kalkulator</h1>
+    <p class="lead">Ini kalkulator buatan surya.</p>
+
+    <p>
+      <button id="run">Start</button>
+    </p>
+
+    <pre id="log" aria-hidden="true"></pre>
+  </div>
+
+  <script>
+    // Fungsi utama kalkulator yang menggunakan prompt() dan alert()
+    function runPromptCalculator() {
+      // Minta angka pertama
+      let aStr = prompt("Masukkan angka 1:");
+      if (aStr === null) { alert("Dibatalkan."); return; } // user cancel
+
+      // Minta angka kedua
+      let bStr = prompt("Masukkan angka 2:");
+      if (bStr === null) { alert("Dibatalkan."); return; }
+
+      // Minta operator
+      let op = prompt("Masukkan operator (+, -, *, /):");
+      if (op === null) { alert("Dibatalkan."); return; }
+
+      // Parsir angka
+      let a = parseFloat(aStr.replace(',', '.'));
+      let b = parseFloat(bStr.replace(',', '.'));
+
+      // Validasi angka
+      if (!isFinite(a) || !isFinite(b)) {
+        alert("Input bukan angka yang valid. Pastikan Anda memasukkan angka.");
+        return;
+      }
+
+      // Trim operator dan ambil pertama jika user masukkan spasi
+      op = op.trim();
+
+      // Hitung berdasarkan operator
+      let result;
+      switch (op) {
+        case '+':
+          result = a + b;
+          break;
+        case '-':
+          result = a - b;
+          break;
+        case '*':
+        case 'x':
+        case 'X':
+          result = a * b;
+          break;
+        case '/':
+          if (b === 0) {
+            alert("Error: Pembagian dengan nol tidak diperbolehkan.");
+            return;
+          }
+          result = a / b;
+          break;
+        default:
+          alert("Operator tidak dikenali. Gunakan salah satu: +, -, *, /");
+          return;
+      }
+
+      // Format hasil: jika bilangan bulat tampil tanpa desimal, jika tidak tampil dengan maksimal 12 desimal bersih
+      let formatted;
+      if (Number.isInteger(result)) {
+        formatted = result.toString();
+      } else {
+        // Hilangkan trailing zeros dengan toFixed lalu parse lagi
+        formatted = parseFloat(result.toFixed(12)).toString();
+      }
+
+      // Tampilkan hasil
+      alert("Hasil: " + formatted);
+
+      // Tulis log singkat ke halaman (bukan requirement, tapi membantu debugging)
+      const log = document.getElementById('log');
+      log.textContent = `Input: a=${a} , b=${b} , op='${op}'\nHasil: ${formatted}`;
+      console.log("Kalkulator prompt:", { a, b, op, result: formatted });
+    }
+
+    // Hook tombol agar user bisa jalankan berkali-kali
+    document.getElementById('run').addEventListener('click', runPromptCalculator);
+
+    // Jika ingin langsung auto-jalankan saat halaman dibuka, uncomment baris berikut:
+    // runPromptCalculator();
+  </script>
+</body>
+</html>

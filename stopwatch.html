@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latihan Javascript 03 - Stopwatch</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+    h1 {
+      margin-bottom: 5px;
+    }
+    .desc {
+      margin-bottom: 20px;
+      color: #444;
+    }
+    #display {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    button {
+      margin-right: 5px;
+      padding: 5px 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Latihan Javascript 03</h1>
+  <div class="desc">
+    
+  </div>
+
+  <div id="display">0</div>
+
+  <button onclick="startTimer()">Start</button>
+  <button onclick="stopTimer()">Stop</button>
+  <button onclick="resetTimer()">Reset</button>
+
+  <script>
+    let counter = 0;
+    let intervalID = null;
+
+    function startTimer() {
+      // Jika timer sudah berjalan, jangan memulai ulang
+      if (intervalID !== null) return;
+
+      intervalID = setInterval(() => {
+        counter++;
+        document.getElementById("display").textContent = counter;
+      }, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(intervalID);
+      intervalID = null;
+    }
+
+    function resetTimer() {
+      stopTimer();     // hentikan dulu (opsional)
+      counter = 0;
+      document.getElementById("display").textContent = 0;
+    }
+  </script>
+
+</body>
+</html>
